@@ -9,7 +9,7 @@ const LeftNavbar = () => {
         )
     },[])
     return (
-        <div className="p-2">
+        <div className="">
             <h2 className="text-xl font-bold">All Categories{categories.length}</h2>
             <div className="flex flex-col gap-2 my-2">
                 {
