@@ -1,6 +1,7 @@
 
 import { FaRegEye, FaShareAlt } from 'react-icons/fa';
 import { AiFillStar } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const Newscard = (props = {}) => {
     const { news } = props || {};
@@ -27,7 +28,7 @@ const Newscard = (props = {}) => {
             {/* Description */}
             <p className="text-gray-600 text-sm mb-4">
                 {news?.details?.length > 100 ? `${news.details.substring(0, 100)}...` : news?.details}
-                <span className="text-primary cursor-pointer"> Read More</span>
+                <Link to={`/news/${news._id}`} className="text-primary cursor-pointer"> Read More</Link>
             </p>
 
             {/* Footer */}

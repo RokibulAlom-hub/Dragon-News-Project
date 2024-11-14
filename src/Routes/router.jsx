@@ -4,6 +4,7 @@ import CategoryNews from "../Paages/CategoryNews";
 import Authlayout from "../Layouts/Authlayout";
 import Login from "../Paages/Login";
 import Register from "../Paages/Register";
+import Newsdetails from "../Paages/Newsdetails";
 
 
 
@@ -25,8 +26,9 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path:'news',
-        element: <div>this is news</div>
+        path:'news/:id',
+        element: <Newsdetails></Newsdetails>,
+        
     },
     {
         path:'/',
