@@ -6,37 +6,44 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWith
 export const Authcontext = createContext(null)
 const auth = getAuth(app);
 
+// eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
-    console.log(user);
+    const [loading,setLoading] = useState(true)
+    console.log(user,loading);
     
     // createUser
     const createUser =(email,password) =>{
+        setLoading(true)
         return createUserWithEmailAndPassword(auth,email,password)
+    }
+    // signin method
+    const signIn = (email,password) =>{
+        setLoading(true)
+        return signInWithEmailAndPassword(auth,email,password)
+    }
+    // logout
+    const logout = ()=>{
+        setLoading(true)
+        return signOut(auth)
     }
     // authobserver 
     useEffect(() => {
        const unsubcribe = onAuthStateChanged(auth,(currentuser) =>{
           setUser(currentuser)
+          setLoading(false)
         });
         return ()=>{
             unsubcribe ()
         }
     },[])
-    // signin method
-    const signIn = (email,password) =>{
-        return signInWithEmailAndPassword(auth,email,password)
-    }
-    // logout
-    const logout = ()=>{
-        return signOut(auth)
-    }
     const authInfo = {
         setUser,
         createUser,
         logout,
         signIn,
-        user
+        user,
+        loading
     }
     return (
         <Authcontext.Provider value={authInfo}>

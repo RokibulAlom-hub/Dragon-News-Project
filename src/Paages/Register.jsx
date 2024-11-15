@@ -1,15 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Authcontext } from "../Providers/AuthProvider";
 
 
 const Register = () => {
-    const { createUser,setUser } = useContext(Authcontext)
+    const { createUser, setUser } = useContext(Authcontext);
+    const [error, setError] = useState();
     const handleSubmit = (e) => {
         e.preventDefault();
         // get form data
         const form = new FormData(e.target);
         const name = form.get('name');
+        if (name.length < 6) {
+            return setError({ ...error, name: 'name must be 6 charecter ' })
+        }
         const photo = form.get('photo');
         const email = form.get('email');
         const password = form.get('password');
@@ -25,8 +29,8 @@ const Register = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorCode,errorMessage);
-                
+                console.log(errorCode, errorMessage);
+
             });
     }
     return (
@@ -43,6 +47,13 @@ const Register = () => {
                             <input name="name"
                                 type="text" placeholder="name" className="input input-bordered"
                             />
+                            {
+                                error?.name && <div>
+                                    <label className="label text-red-500">
+                                       {error.name}
+                                    </label>
+                                </div>
+                            }
                         </div>
                         {/* photo */}
                         <div className="form-control">
